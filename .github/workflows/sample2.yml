@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - alpha
+      - beta
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: sample2つめ
+      run: echo "====" && cd .. && pwd && ls -al && whoami && echo "===="
