@@ -1,0 +1,37 @@
+name: デフォルトの環境変数一覧(GITHUB_hogehoge)
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: HOME GitHubホームディレクトリのパス、例えば/github/home
+      run: echo $HOME
+    - name: GITHUB_WORKFLOW ワークフローの名前
+      run: echo $GITHUB_WORKFLOW
+    - name: GITHUB_ACTION アクション一意の識別子
+      run: echo $GITHUB_ACTION
+    - name: GITHUB_ACTIONS 普通はtrue、これでlocalで実行するか決められる
+      run: echo $GITHUB_ACTIONS
+    - name: GITHUB_ACTOR ワークフローを開始するユーザまたはアプリの名前。octcat的な
+      run: echo $GITHUB_ACTOR
+    - name: GITHUB_REPOSITORY リポジトリ名(sunakan/hoge)
+      run: echo $GITHUB_ACTOR
+    - name: GITHUB_EVENT_NAME ワークフローをトリガーしたwebhookイベントの名前
+      run: echo $GITHUB_EVENT_NAME
+    - name: GITHUB_EVENT_PATH 完了したwebhookイベントペイロードのファイルのパス。(何言ってるか意味不)
+      run: echo $GITHUB_EVENT_PATH
+    - name: GITHUB_WORKSPACE GitHubワークスペースディレクトリのパス。
+      run: echo $GITHUB_WORKSPACE
+    - name: GITHUB_SHA ワークフローをトリガーしたコミットSHA。(コミットID)
+      run: echo $GITHUB_SHA
+    - name: GITHUB_REF ワークフローをトリガーしたブランチまたはタグref
+      run: echo $GITHUB_REF
+    - name: GITHUB_HEAD_REF フォークしたリポジトリのみに設定。 headリポジトリのブランチです。
+      run: echo $GITHUB_HEAD_REF
+    - name: GITHUB_BASE_REF フォークしたリポジトリのみに設定。 ベースリポジトリのブランチです。
+      run: echo $GITHUB_BASE_REF
