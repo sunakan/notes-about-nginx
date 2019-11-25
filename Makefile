@@ -1,6 +1,7 @@
 ENV_TAG=develop
 NGINX_VERSION_TAG=stable
 CONTAINER_NAME=nginx
+
 build:
 	docker build -t suna-nginx:${ENV_TAG} --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} .
 
