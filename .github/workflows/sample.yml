@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - alpha
+      - beta
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: 1行スクリプトの実行
+      run: echo "====" && pwd && ls -al && echo "===="
+    - name: 複数行スクリプト
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
