@@ -1,0 +1,16 @@
+name: ブランチ名を取得して、他のstepで使いたい
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: ブランチ名を取得して、stepにidを付与
+      run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: steps.ID.outputs.NAMEで取得可能!!!!(これでECRにpushする時便利!!)
+      run: echo ${{ steps.extract_branch.outputs.branch_name }}
