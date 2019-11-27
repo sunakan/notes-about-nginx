@@ -13,5 +13,5 @@ jobs:
       - name: ブランチ名を取得して、stepにidを付与
         run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: ワークフローをトリガーしたコミットSHAはGITHUB_REF
-        run: echo ${GITHUB_REF}
+      - name: ワークフローをトリガーしたコミットSHAはGITHUB_SHA
+        run: echo ${GITHUB_SHA}
