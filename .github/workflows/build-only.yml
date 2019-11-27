@@ -19,5 +19,9 @@ jobs:
       - name: ビルド
         run: |
           IMAGE_TAG=${{ steps.extract_branch.outputs.branch_name }}
-          docker build -t sunakan/suna-nginx:${IMAGE_TAG} .
+          NGINX_VERSION_TAG=stable
+          docker build \
+            --tag sunakan/suna-nginx:${IMAGE_TAG} \
+            --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
+            .
           docker images ls
