@@ -1,0 +1,23 @@
+name: Branch名を利用したDockerのイメージをビルドするだけ(意味ない)
+
+on:
+  push:
+    branches:
+      - master
+      - alpha
+      - beta
+
+jobs:
+  build-only:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v1
+      - name: ブランチ名を取得して、stepにidを付与
+        run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: ビルド
+        run: |
+          IMAGE_TAG=${{ steps.extract_branch.outputs.branch_name }}
+          docker build -t sunakan/suna-nginx:${IMAGE_TAG} .
+          docker images ls
