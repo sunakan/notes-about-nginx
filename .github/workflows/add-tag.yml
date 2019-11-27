@@ -20,4 +20,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           COMMIT: ${{ github.sha }}
+          GIT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
         run: ./add-tag.sh
