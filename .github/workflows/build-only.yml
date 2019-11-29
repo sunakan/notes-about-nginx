@@ -17,6 +17,10 @@ jobs:
         run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: ビルド
+        env:
+          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
         run: |
           bash ./build.sh
+          echo "=========="
           docker images ls
+          echo "=========="
