@@ -3,6 +3,7 @@ name: tagをつける
 on:
   push:
     branches:
+      - master
 
 jobs:
   add-tag:
