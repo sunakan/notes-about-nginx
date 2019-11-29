@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 300
     steps:
       - uses: actions/checkout@v1
+      - name: TimeZoneをGET
+        run: apt-get update && apt-get install -y tzdata
       - name: ブランチ名を取得して、stepにidを付与
         run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
