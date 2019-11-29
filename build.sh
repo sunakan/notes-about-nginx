@@ -9,7 +9,8 @@ CURRENT_BRANCH=${CURRENT_BRANCH##*/}
 
 # (日本)時間の取得
 # 20191231T213015 => 2019年12月31日の21h30m15s
-TZ=Asia/Tokyo BUILD_DATE=`date "+%Y%m%dT%H%M%S"`
+export TZ=Asia/Tokyo
+BUILD_DATE=`date "+%Y%m%dT%H%M%S"`
 
 # コミットIDの最初の8文字
 COMMIT_ID=`git show -s --format=%H`
