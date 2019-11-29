@@ -3,9 +3,7 @@ name: Build and Push
 on:
   push:
     branches:
-      - master
-      - beta
-      - alpha
+      - feature/push-docker-image-to-ecr
 
 jobs:
   build-and-push:
