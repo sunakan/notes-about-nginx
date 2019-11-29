@@ -17,11 +17,10 @@ jobs:
         run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: ビルド
+        env:
+          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
         run: |
-          IMAGE_TAG=${{ steps.extract_branch.outputs.branch_name }}
-          NGINX_VERSION_TAG=stable
-          docker build \
-            --tag sunakan/suna-nginx:${IMAGE_TAG} \
-            --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
-            .
+          bash ./build.sh
+          echo "=========="
           docker images ls
+          echo "=========="
