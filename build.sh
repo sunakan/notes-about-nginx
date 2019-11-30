@@ -22,3 +22,8 @@ docker build \
   --tag sunakan/suna-nginx:${IMAGE_TAG} \
   --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
   .
+
+# github actionsの他のstepでimage_tagが取得可能になるするためのecho
+# 構文：${{ steps.<step id>.outputs.<output name> }}
+# 今回：${{ steps.build_image.outputs.image_tag }}
+echo "##[set-output name=image_tag;]$(echo ${IMAGE_TAG})"
