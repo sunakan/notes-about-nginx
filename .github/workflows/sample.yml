@@ -37,6 +37,10 @@ jobs:
       run: echo $GITHUB_BASE_REF
     - name: secretはマスクされている
       run: echo ${{ secrets.TEST_SECRET }}
+    - name: チェックアウトをするとリポジトリが取ってこれる
+      uses: actions/checkout@v1
+    - name: 確認
+      run: ls -al
     - name: 環境変数で渡してそこでecho
       env:
         HOGE: ${{ secrets.TEST_SECRET }}
