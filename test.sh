@@ -9,7 +9,7 @@ echo "=====TEST_SECRET2"
 echo ${TEST_SECRET2}
 echo "====="
 
-TEST_SECRET3=${HOGE:0:-1}
+TEST_SECRET3=${HOGE}HOGEHOGEHOGEHOGEHOGEHOGE
 echo "=====TEST_SECRET3"
 echo ${TEST_SECRET3}
 echo "====="
