@@ -28,3 +28,13 @@ TEST_JOIN=${TEST_SECRET4}${TEST_SECRET5}
 echo "=====つなげてみた"
 echo ${TEST_JOIN}
 echo "====="
+
+TEST_SECRET3_1=FUGA-${HOGE}HOGE
+echo "=====TEST_SECRET3_挟んででみた"
+echo ${TEST_SECRET3_1}
+echo "====="
+
+TEST_SECRET3_2="これバレたらだめなやつ"
+echo "=====TEST_SECRET3_ベタ書きしてみる"
+echo ${TEST_SECRET3_2}
+echo "====="
