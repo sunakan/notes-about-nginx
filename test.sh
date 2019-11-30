@@ -1,40 +1,16 @@
 #!/bin/bash
 
-echo "=====HOGE"
-echo ${HOGE}
-echo "====="
+MY_SECRET_FACTOR="I'm a hero."
 
-TEST_SECRET2=${HOGE}
-echo "=====TEST_SECRET2"
-echo ${TEST_SECRET2}
-echo "====="
+echo "=============何もしないでいきなり出力"
+echo ${MY_SECRET_FACTOR}
 
-TEST_SECRET3=${HOGE}HOGEHOGEHOGEHOGEHOGEHOGE
-echo "=====TEST_SECRET3"
-echo ${TEST_SECRET3}
-echo "====="
+echo "=============add-maskして出力"
+echo "::add-mask::${MY_SECRET_FACTOR}"
+echo ${MY_SECRET_FACTOR}
 
-TEST_SECRET4=${HOGE:0:1}
-echo "=====TEST_SECRET4最初の1文字を出力"
-echo ${TEST_SECRET4}
-echo "====="
+echo "=============set-output"
+echo "::set-output name=my_secret_factor::${MY_SECRET_FACTOR}"
 
-TEST_SECRET5=${HOGE:1}
-echo "=====TEST_SECRET5最初の1文字を抜いて出力"
-echo ${TEST_SECRET5}
-echo "====="
-
-TEST_JOIN=${TEST_SECRET4}${TEST_SECRET5}
-echo "=====つなげてみた"
-echo ${TEST_JOIN}
-echo "====="
-
-TEST_SECRET3_1=FUGA-${HOGE}HOGE
-echo "=====TEST_SECRET3_挟んででみた"
-echo ${TEST_SECRET3_1}
-echo "====="
-
-TEST_SECRET3_2="これバレたらだめなやつ"
-echo "=====TEST_SECRET3_ベタ書きしてみる"
-echo ${TEST_SECRET3_2}
-echo "====="
+echo "=============set-env"
+echo "::set-env name=MY_SECRET_FACTOR_ENV::${MY_SECRET_FACTOR}"
