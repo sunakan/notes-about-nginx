@@ -42,7 +42,7 @@ jobs:
     - name: 確認
       run: ls -al
     - name: Shellでセットしてマスクも可能か？
-      run: ./test.sh
+      run: bash ./test.sh
       id: set_test
     - name: セットしたやつを使いまわす
       env:
