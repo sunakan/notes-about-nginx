@@ -25,7 +25,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
       - name: ECRへpush
         env:
+          AWS_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          AWS_ECR_REPO_NAME: ${{ secrets.AWS_ECR_REPO_NAME }}
           IMAGE_TAG: ${{ steps.build_image.outputs.image_tag }}
         run: bash ./push-to-ecr.sh
+
