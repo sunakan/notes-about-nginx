@@ -46,7 +46,7 @@ jobs:
       id: set_test
     - name: セットしたやつを使いまわす
       env:
-        TEST: ${{ steps.set_image.outputs.my_secret_factor }}
+        TEST: ${{ steps.set_test.outputs.my_secret_factor }}
       run: |
         echo "===================="
         echo ${TEST}
