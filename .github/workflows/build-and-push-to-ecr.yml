@@ -19,6 +19,12 @@ jobs:
           CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
         run: bash ./build.sh
         id: build_image
+    - name: AWS Credentialsの設定
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
       - name: ECRへpush
         env:
           IMAGE_TAG: ${{ steps.build_image.outputs.image_tag }}
