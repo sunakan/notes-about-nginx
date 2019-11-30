@@ -1,0 +1,25 @@
+name: DockerImageをBuildしてECRへpushするやつ
+
+on:
+  push:
+    branches:
+      - feature/push-docker-image-to-ecr
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v1
+      - name: ブランチ名を取得して、stepにidを付与
+        run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: DockerImageのビルド
+        env:
+          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
+        run: bash ./build.sh
+        id: build_image
+      - name: ECRへpush
+        env:
+          IMAGE_TAG: ${{ steps.build_image.outputs.image_tag }}
+        run: bash ./push-to-ecr.sh
