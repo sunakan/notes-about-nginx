@@ -20,8 +20,5 @@
 # AWS_ECR_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
 
 # ECRにpushする用のimage tagを付与
-docker tag sunakan/suna-nginx:${IMAGE_TAG} "${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}"
-
-echo "=================="
-docker image ls -a
-echo "=================="
+docker tag sunakan/suna-nginx:${IMAGE_TAG} ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}
+docker push ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}
