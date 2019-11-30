@@ -40,6 +40,6 @@ jobs:
     - name: 環境変数で渡してそこでecho
       env:
         HOGE: ${{ secrets.TEST_SECRET }}
-      run:
+      run: |
         echo ${HOGE}
         bash ./test.sh
