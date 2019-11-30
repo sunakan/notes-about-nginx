@@ -1,9 +1,7 @@
-name: デフォルトの環境変数一覧(GITHUB_hogehoge)
+name: テストアクション
 
 on:
   push:
-    branches:
-      - master
 
 jobs:
   build:
@@ -35,3 +33,13 @@ jobs:
       run: echo $GITHUB_HEAD_REF
     - name: GITHUB_BASE_REF フォークしたリポジトリのみに設定。 ベースリポジトリのブランチです。
       run: echo $GITHUB_BASE_REF
+    - name: GITHUB_BASE_REF フォークしたリポジトリのみに設定。 ベースリポジトリのブランチです。
+      run: echo $GITHUB_BASE_REF
+    - name: secretはマスクされている
+      run: echo ${{ secrets.TEST_SECRET }}
+    - name: 環境変数で渡してそこでecho
+      env:
+        HOGE: ${{ secrets.TEST_SECRET }}
+      run:
+        echo ${HOGE}
+        bash ./test.sh
