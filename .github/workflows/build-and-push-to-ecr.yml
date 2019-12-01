@@ -3,9 +3,7 @@ name: DockerImageをBuildしてECRへpushするやつ
 on:
   push:
     branches:
-      - master
-      - beta
-      - alpha
+      - feature/refactor
 
 jobs:
   build-and-push:
@@ -13,27 +11,13 @@ jobs:
     timeout-minutes: 300
     steps:
       - uses: actions/checkout@v1
-      - name: ブランチ名を取得して、stepにidを付与
-        run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: DockerImageのビルド
-        env:
-          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
-        run: bash ./build.sh
-        id: build_image
       - name: AWS Credentialsの設定
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: ECRへpush
+      - name: BuildしてECRへpush
         env:
-          AWS_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          AWS_ECR_REPO_NAME: ${{ secrets.AWS_ECR_REPO_NAME }}
-          IMAGE_TAG: ${{ steps.build_image.outputs.image_tag }}
-        run: bash ./push-to-ecr.sh
-
+          CURRENT_BRANCH: ${GITHUB_REF#refs/heads/}
+        run: bash build.sh | tail -1 | bash ./push-to-ecr.sh ${{ secrets.AWS_ECR_REPO_NAME }}
