@@ -11,6 +11,9 @@ if [ -z "${CURRENT_BRANCH:+$CURRENT_BRANCH}" ]; then
   CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 fi
 CURRENT_BRANCH=${CURRENT_BRANCH##*/}
+echo "================"
+echo ${CURRENT_BRANCH}
+echo "================"
 
 # (UTC)時間の取得(ISO 8601)
 # 2019年12月31日の21h30m15s => 20191231T213015Z
@@ -23,7 +26,8 @@ COMMIT_ID=${COMMIT_ID:0:8}
 
 # DockerImageのビルド
 NGINX_VERSION_TAG=stable
-IMAGE_TAG=${CURRENT_BRANCH}--${BUILD_DATE}--${COMMIT_ID}
+IMAGE_TAG="${CURRENT_BRANCH}--${BUILD_DATE}--${COMMIT_ID}"
+
 docker build \
   --tag sunakan/suna-nginx:${IMAGE_TAG} \
   --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
