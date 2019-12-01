@@ -14,7 +14,7 @@ build-and-push: login
 	bash ./build.sh | tail -1 | bash ./push-to-ecr.sh sunabako/suna-nginx
 
 run:
-	docker run --rm -p 3000:80 --name ${CONTAINER_NAME} -e ENV=${ENV} -e SECRET=${SECRET} suna-nginx:${ENV}
+	docker run --rm -p 3000:80 --name ${CONTAINER_NAME} -e ENV=${ENV} -e SECRET=${SECRET} sunakan/suna-nginx:latest
 
 bash:
 	docker exec -it ${CONTAINER_NAME} bash

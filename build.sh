@@ -30,6 +30,8 @@ docker build \
   --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
   .
 
+docker tag sunakan/suna-nginx:${IMAGE_TAG} sunakan/suna-nginx:latest
+
 # 以下のように書かない理由：GitHubActionと手動実行時とできるだけ同じにするため
 # echo "##[set-output name=image_tag;]$(echo ${IMAGE_TAG})"
 echo "built docker image"
