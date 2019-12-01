@@ -23,7 +23,7 @@ COMMIT_ID=${COMMIT_ID:0:8}
 
 # DockerImageのビルド
 NGINX_VERSION_TAG=stable
-IMAGE_TAG="${CURRENT_BRANCH}--${BUILD_DATE}--${COMMIT_ID}"
+IMAGE_TAG=${CURRENT_BRANCH}--${BUILD_DATE}--${COMMIT_ID}
 docker build \
   --tag sunakan/suna-nginx:${IMAGE_TAG} \
   --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} \
