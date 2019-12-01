@@ -3,7 +3,9 @@ name: DockerImageをBuildしてECRへpushするやつ
 on:
   push:
     branches:
-      - feature/refactor
+      - master
+      - beta
+      - alpha
 
 jobs:
   build-and-push:
