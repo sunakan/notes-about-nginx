@@ -6,8 +6,11 @@ SECRET=DEVELOP_SECRET
 build:
 	bash ./build.sh
 
+login:
+	aws ecr get-login --no-include-email | sh
+
 # 手動用
-build-and-push:
+build-and-push: login
 	bash ./build.sh | tail -1 | bash ./push-to-ecr.sh sunabako/suna-nginx
 
 run:

@@ -7,11 +7,10 @@ set -u
 # 強み：feature/hoge
 # 弱み：alpha/hogeとbeta/hoge
 # TODO: GithubActionsでもここでブランチ名を取得できるな、if文消せる
-if [ -z ${CURRENT_BRANCH:+$CURRENT_BRANCH} ]; then
+if [ -z "${CURRENT_BRANCH:+$CURRENT_BRANCH}" ]; then
   CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 fi
 CURRENT_BRANCH=${CURRENT_BRANCH##*/}
-echo ${CURRENT_BRANCH}
 
 # (UTC)時間の取得(ISO 8601)
 # 2019年12月31日の21h30m15s => 20191231T213015Z
