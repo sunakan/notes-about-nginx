@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # 実行例
-# IMAGE_TAG=${HOGE} bash push-to-ecr.sh ${AWS_ECR_REPO_NAME}
+# DOCKER_IMAGE_WITH_TAG=${HOGE} bash push-to-ecr.sh ${AWS_ECR_REPO_NAME}
 # or
-# echo "${IMAGE_TAG}" | bash push-to-ecr.sh ${AWS_ECR_REPO_NAME}
+# echo "${DOCKER_IMAGE_WITH_TAG}" | bash push-to-ecr.sh ${AWS_ECR_REPO_NAME}
 
 # -u オプションは未定義変数を使うとError
 set -u
 
-# IMAGE_TAGが未定義なら、標準入力で読み込む
-if [ -z "${IMAGE_TAG:+IMAGE_TAG}" ]; then
-  read IMAGE_TAG
+# DOCKER_IMAGE_WITH_TAGが未定義なら、標準入力で読み込む
+if [ -z "${DOCKER_IMAGE_WITH_TAG:+DOCKER_IMAGE_WITH_TAG}" ]; then
+  read DOCKER_IMAGE_WITH_TAG
 fi
 
 # AWS_ECR_REGISTRYが未定義なら、ACCOUNT_IDを取得して作る(手動用)
@@ -22,5 +22,5 @@ fi
 AWS_ECR_REPO_NAME=$1
 
 # ECRにpushする用のimage tagを付与
-docker tag sunakan/suna-nginx:${IMAGE_TAG} ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}
-docker push ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}
+docker tag ${DOCKER_IMAGE_WITH_TAG} ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${DOCKER_IMAGE_WITH_TAG##*:}
+docker push ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${DOCKER_IMAGE_WITH_TAG##*:}

@@ -29,4 +29,5 @@ jobs:
         env:
           AWS_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
+          DOCKER_IMAGE: ${{ secrets.AWS_ECR_REPO_NAME }}
         run: bash ./build.sh | tail -1 | bash ./push-to-ecr.sh ${{ secrets.AWS_ECR_REPO_NAME }}
