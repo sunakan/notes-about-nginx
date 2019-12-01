@@ -24,5 +24,7 @@ jobs:
         env:
           AWS_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           CURRENT_BRANCH: ${GITHUB_REF#refs/heads/}
-        run: bash ./build.sh
+        run: |
+          echo ${CURRENT_BRANCH}
+          bash ./build.sh
         #run: bash ./build.sh | tail -1 | bash ./push-to-ecr.sh ${{ secrets.AWS_ECR_REPO_NAME }}
