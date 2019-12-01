@@ -20,11 +20,14 @@ jobs:
       #  uses: aws-actions/amazon-ecr-login@v1
       - name: リポジトリをcheckout
         uses: actions/checkout@v1
+      - name: ブランチ名を取得して、stepにidを付与
+        run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: BuildしてECRへpush
         env:
           AWS_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          CURRENT_BRANCH: ${GITHUB_REF#refs/heads/}
+          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch_name }}
         run: |
-          echo ${CURRENT_BRANCH}
+          echo "${CURRENT_BRANCH}"
           bash ./build.sh
         #run: bash ./build.sh | tail -1 | bash ./push-to-ecr.sh ${{ secrets.AWS_ECR_REPO_NAME }}

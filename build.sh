@@ -11,9 +11,6 @@ if [ -z "${CURRENT_BRANCH:+$CURRENT_BRANCH}" ]; then
   CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 fi
 CURRENT_BRANCH=${CURRENT_BRANCH##*/}
-echo "================"
-echo ${CURRENT_BRANCH}
-echo "================"
 
 # (UTC)時間の取得(ISO 8601)
 # 2019年12月31日の21h30m15s => 20191231T213015Z
