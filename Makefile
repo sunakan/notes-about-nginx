@@ -4,7 +4,11 @@ CONTAINER_NAME=nginx
 SECRET=DEVELOP_SECRET
 
 build:
-	docker build -t suna-nginx:${ENV} --build-arg NGINX_VERSION_TAG=${NGINX_VERSION_TAG} .
+	bash ./build.sh
+
+# 手動用
+build-and-push:
+	bash ./build.sh | tail -1 | bash ./push-to-ecr.sh sunabako/suna-nginx
 
 run:
 	docker run --rm -p 3000:80 --name ${CONTAINER_NAME} -e ENV=${ENV} -e SECRET=${SECRET} suna-nginx:${ENV}

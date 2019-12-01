@@ -1,23 +1,29 @@
 #!/bin/bash
 
-# 外から必要な変数
-#
-# AWS_ECR_REPO_NAME=ベタ書きした時のリスクは。。。？
-# IMAGE_TAG=push-docker-image-to-ecr-20191130T113404-317904d6
+set -u
+
+# IMAGE_TAGが未定義なら、標準入力で読み込む
+if [ -z ${IMAGE_TAG:+IMAGE_TAG} ]; then
+  read IMAGE_TAG
+fi
 
 # Login
 #
 # loginするためのコマンドをaws ecr get-loginで発行
 # それを即実行するために$()で囲ってる
-# 手動実行するときは、コメントインする
-# $(aws ecr get-login --no-include-email)
+$(aws ecr get-login --no-include-email)
 
-# actionsを利用するときは、AWS_ECR_REGISTRYをここで定義不要
-#
 # account idがaws cliで取ってこれるらしいのでそれを利用
-# AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq -r '.Account')
-# AWS_DEFAULT_REGION=ap-northeast-1
-# AWS_ECR_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+# 第1引数をAWS_ECR_REPO_NAMEにしている
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq -r '.Account')
+AWS_DEFAULT_REGION=ap-northeast-1
+AWS_ECR_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+AWS_ECR_REPO_NAME=$1
+
+# GitHub Actionのログに出力されたとき、マスクしてほしい
+# (手動実行時はこれで見えてしまう)
+echo "::add-mask::${AWS_ACCOUNT_ID}"
+echo "::add-mask::${AWS_ECR_REPO_NAME}"
 
 # ECRにpushする用のimage tagを付与
 docker tag sunakan/suna-nginx:${IMAGE_TAG} ${AWS_ECR_REGISTRY}/${AWS_ECR_REPO_NAME}:${IMAGE_TAG}
